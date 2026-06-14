@@ -1,0 +1,262 @@
+/**
+ * DevBrothers Counter Manager - Admin Styles
+ *
+ * Стили карточек счётчиков и элементов настроек.
+ * Общие стили загружаются из базового плагина devbrothers-admin-panel.
+ */
+
+/* ===========================================
+   Counter Cards
+   =========================================== */
+
+.dbcm-counter-card {
+    background: #fff;
+    border: 1px solid #dcdcde;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.dbcm-counter-card.dbcm-active {
+    border-color: #2271b1;
+    box-shadow: 0 0 0 1px rgba(34, 113, 177, 0.12);
+}
+
+/* --- Card Header --- */
+
+.dbcm-counter-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    background: #f6f7f7;
+}
+
+.dbcm-counter-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.dbcm-counter-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.dbcm-icon-yandex {
+    background: linear-gradient(135deg, #ff4400, #fc3f1d);
+}
+
+.dbcm-icon-google {
+    background: linear-gradient(135deg, #4285f4, #1a73e8);
+}
+
+.dbcm-icon-consent {
+    background: linear-gradient(135deg, #6c47ff, #4f46e5);
+}
+
+.dbcm-counter-title h3 {
+    margin: 0 0 2px;
+    padding: 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1d2327;
+    line-height: 1.3;
+}
+
+.dbcm-counter-status {
+    display: block;
+    font-size: 12px;
+    color: #787c82;
+    transition: color 0.2s ease;
+}
+
+.dbcm-counter-status.dbcm-status-active {
+    color: #00a32a;
+    font-weight: 500;
+}
+
+/* --- Toggle Switch --- */
+
+.dbcm-toggle {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.dbcm-toggle input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.dbcm-toggle-track {
+    display: block;
+    width: 44px;
+    height: 24px;
+    background: #c3c4c7;
+    border-radius: 12px;
+    position: relative;
+    transition: background-color 0.25s ease;
+}
+
+.dbcm-toggle input:checked + .dbcm-toggle-track {
+    background: #2271b1;
+}
+
+.dbcm-toggle input:focus + .dbcm-toggle-track {
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px #2271b1;
+}
+
+.dbcm-toggle-thumb {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border-radius: 50%;
+    transition: transform 0.25s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+}
+
+.dbcm-toggle input:checked + .dbcm-toggle-track .dbcm-toggle-thumb {
+    transform: translateX(20px);
+}
+
+/* --- Card Body --- */
+
+.dbcm-counter-body {
+    padding: 20px;
+    border-top: 1px solid #f0f0f1;
+    transition: opacity 0.25s ease;
+}
+
+.dbcm-counter-card:not(.dbcm-active) .dbcm-counter-body {
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+.dbcm-counter-body > label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #1d2327;
+    font-size: 13px;
+}
+
+/* --- Code Editor --- */
+
+.dbcm-code-wrapper {
+    position: relative;
+}
+
+.dbcm-code-editor {
+    display: block;
+    width: 100%;
+    min-height: 200px;
+    max-height: 500px;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    padding: 12px 16px;
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+    background: #f6f7f7;
+    color: #2c3338;
+    resize: vertical;
+    tab-size: 4;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dbcm-code-editor:focus {
+    border-color: #2271b1;
+    box-shadow: 0 0 0 1px #2271b1;
+    outline: none;
+    background: #fff;
+}
+
+.dbcm-code-editor::placeholder {
+    color: #a7aaad;
+    font-style: italic;
+}
+
+/* CodeMirror integration */
+.dbcm-code-wrapper .CodeMirror {
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+    height: auto;
+    min-height: 200px;
+    max-height: 500px;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.dbcm-code-wrapper .CodeMirror-focused {
+    border-color: #2271b1;
+    box-shadow: 0 0 0 1px #2271b1;
+}
+
+.dbcm-code-wrapper .CodeMirror-scroll {
+    min-height: 200px;
+    max-height: 500px;
+}
+
+/* --- Hint text --- */
+
+.dbcm-hint {
+    margin: 8px 0 0;
+    color: #787c82;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.dbcm-policy-wrapper {
+    margin-top: 16px;
+}
+
+.dbcm-policy-wrapper input[type="url"] {
+    width: 100%;
+    max-width: 540px;
+}
+
+.dbcm-exclude-paths {
+    width: 100%;
+    max-width: 540px;
+    font-family: Consolas, Monaco, monospace;
+    font-size: 13px;
+}
+
+/* ===========================================
+   Diagnostics & Instructions
+   =========================================== */
+
+.devbrothers-settings-category hr {
+    border: none;
+    border-top: 1px solid #f0f0f1;
+    margin: 20px 0;
+}
+
+.dbcm-steps-list {
+    margin: 0.5em 0 0 1.25em;
+}
+
+.dbcm-instructions-block {
+    margin-top: 20px;
+}

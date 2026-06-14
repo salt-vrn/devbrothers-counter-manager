@@ -1,0 +1,217 @@
+/* Layout (theme-agnostic) */
+
+#dbcm-cookie-banner.dbcm-cookie-banner {
+    position: fixed;
+    left: 14px;
+    bottom: 16px;
+    z-index: 99999;
+    max-width: 420px;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    line-height: 1.4;
+    text-align: left;
+    isolation: isolate;
+}
+
+#dbcm-cookie-banner.dbcm-cookie-banner *,
+#dbcm-cookie-fab.dbcm-cookie-fab {
+    box-sizing: border-box;
+}
+
+#dbcm-cookie-banner .dbcm-cookie-banner__content {
+    border-radius: 10px;
+    padding: 12px 12px 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.14);
+    border: 1px solid transparent;
+}
+
+#dbcm-cookie-banner .dbcm-cookie-banner__text {
+    margin: 0 0 10px !important;
+    padding: 0 !important;
+    line-height: 1.4 !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    font-family: inherit !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    text-shadow: none !important;
+    opacity: 1 !important;
+}
+
+#dbcm-cookie-banner .dbcm-cookie-banner__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+}
+
+#dbcm-cookie-banner .dbcm-cookie-btn {
+    border: 1px solid transparent;
+    border-radius: 7px;
+    padding: 7px 10px !important;
+    margin: 0 !important;
+    cursor: pointer;
+    font-weight: 500 !important;
+    font-size: 12px !important;
+    line-height: 1.2 !important;
+    font-family: inherit !important;
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    text-shadow: none !important;
+    box-shadow: none !important;
+    appearance: none;
+    -webkit-appearance: none;
+    opacity: 1 !important;
+}
+
+#dbcm-cookie-banner .dbcm-cookie-banner__policy {
+    font-size: 12px !important;
+    font-weight: 400 !important;
+    text-decoration: underline !important;
+    margin-right: auto !important;
+    margin-bottom: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+}
+
+#dbcm-cookie-fab.dbcm-cookie-fab {
+    position: fixed;
+    left: 14px;
+    bottom: 16px;
+    z-index: 99998;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    padding: 7px 10px !important;
+    margin: 0 !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    line-height: 1.2 !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif !important;
+    cursor: pointer;
+    box-shadow: 0 5px 16px rgba(0, 0, 0, 0.14);
+    text-transform: none !important;
+    letter-spacing: normal !important;
+    text-shadow: none !important;
+    appearance: none;
+    -webkit-appearance: none;
+    opacity: 1 !important;
+    isolation: isolate;
+}
+
+/* Light theme — explicit colors resist global theme rules (e.g. body.dashboard p { color: #fff }) */
+
+#dbcm-cookie-banner.dbcm-theme-light .dbcm-cookie-banner__content {
+    background: rgba(255, 255, 255, 0.96) !important;
+    color: #1f2937 !important;
+    border-color: #e5e7eb !important;
+    color-scheme: light;
+}
+
+#dbcm-cookie-banner.dbcm-theme-light .dbcm-cookie-banner__text {
+    color: #1f2937 !important;
+    -webkit-text-fill-color: #1f2937 !important;
+}
+
+#dbcm-cookie-banner.dbcm-theme-light .dbcm-cookie-btn--primary {
+    background: #2563eb !important;
+    color: #ffffff !important;
+    border-color: #2563eb !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+
+#dbcm-cookie-banner.dbcm-theme-light .dbcm-cookie-btn--secondary {
+    background: #f9fafb !important;
+    color: #374151 !important;
+    border-color: #d1d5db !important;
+    -webkit-text-fill-color: #374151 !important;
+}
+
+#dbcm-cookie-banner.dbcm-theme-light .dbcm-cookie-banner__policy,
+#dbcm-cookie-banner.dbcm-theme-light .dbcm-cookie-banner__policy:hover,
+#dbcm-cookie-banner.dbcm-theme-light .dbcm-cookie-banner__policy:focus,
+#dbcm-cookie-banner.dbcm-theme-light .dbcm-cookie-banner__policy:visited {
+    color: #2563eb !important;
+    -webkit-text-fill-color: #2563eb !important;
+}
+
+#dbcm-cookie-fab.dbcm-theme-light {
+    background: rgba(255, 255, 255, 0.96) !important;
+    color: #374151 !important;
+    border-color: #d1d5db !important;
+    -webkit-text-fill-color: #374151 !important;
+    color-scheme: light;
+}
+
+/* Dark theme */
+
+#dbcm-cookie-banner.dbcm-theme-dark .dbcm-cookie-banner__content {
+    background: rgba(17, 24, 39, 0.96) !important;
+    color: #f3f4f6 !important;
+    border-color: #374151 !important;
+    color-scheme: dark;
+}
+
+#dbcm-cookie-banner.dbcm-theme-dark .dbcm-cookie-banner__text {
+    color: #f3f4f6 !important;
+    -webkit-text-fill-color: #f3f4f6 !important;
+}
+
+#dbcm-cookie-banner.dbcm-theme-dark .dbcm-cookie-btn--primary {
+    background: #4f46e5 !important;
+    color: #ffffff !important;
+    border-color: #4f46e5 !important;
+    -webkit-text-fill-color: #ffffff !important;
+}
+
+#dbcm-cookie-banner.dbcm-theme-dark .dbcm-cookie-btn--secondary {
+    background: #1f2937 !important;
+    color: #e5e7eb !important;
+    border-color: #374151 !important;
+    -webkit-text-fill-color: #e5e7eb !important;
+}
+
+#dbcm-cookie-banner.dbcm-theme-dark .dbcm-cookie-banner__policy,
+#dbcm-cookie-banner.dbcm-theme-dark .dbcm-cookie-banner__policy:hover,
+#dbcm-cookie-banner.dbcm-theme-dark .dbcm-cookie-banner__policy:focus,
+#dbcm-cookie-banner.dbcm-theme-dark .dbcm-cookie-banner__policy:visited {
+    color: #c7d2fe !important;
+    -webkit-text-fill-color: #c7d2fe !important;
+}
+
+#dbcm-cookie-fab.dbcm-theme-dark {
+    background: rgba(17, 24, 39, 0.95) !important;
+    color: #f3f4f6 !important;
+    border-color: #374151 !important;
+    -webkit-text-fill-color: #f3f4f6 !important;
+    color-scheme: dark;
+}
+
+@media (max-width: 767px) {
+    #dbcm-cookie-banner.dbcm-cookie-banner {
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+        max-width: none;
+    }
+
+    #dbcm-cookie-banner .dbcm-cookie-banner__content {
+        padding: 11px;
+    }
+
+    #dbcm-cookie-banner .dbcm-cookie-banner__actions {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    #dbcm-cookie-banner .dbcm-cookie-banner__policy {
+        margin-right: 0 !important;
+        width: 100%;
+    }
+}
