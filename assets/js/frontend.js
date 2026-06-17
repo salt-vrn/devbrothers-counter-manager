@@ -6,6 +6,7 @@
     }
 
     var consentCookieName = dbcmFrontend.consentCookieName || 'dbcm_cookie_consent';
+    var consentMode = dbcmFrontend.consentMode === 'opt_out' ? 'opt_out' : 'opt_in';
     var strings = dbcmFrontend.strings || {};
     var policyUrl = dbcmFrontend.policyUrl || '';
     var theme = dbcmFrontend.theme === 'dark' ? 'dark' : 'light';
@@ -99,6 +100,17 @@
             }
 
             setCookie(consentCookieName, value, maxAgeSeconds);
+
+            if (consentMode === 'opt_in' && value === 'declined') {
+                updateUiByConsent(value, banner, fab);
+                return;
+            }
+
+            if (consentMode === 'opt_out' && value === 'accepted') {
+                updateUiByConsent(value, banner, fab);
+                return;
+            }
+
             window.location.reload();
         });
 

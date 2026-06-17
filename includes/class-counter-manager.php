@@ -248,6 +248,9 @@ class DBCM_Counter_Manager {
 
         wp_localize_script('dbcm-frontend', 'dbcmFrontend', [
             'consentCookieName' => $this->consent_cookie_name,
+            'consentMode' => isset($settings['cookie_consent_mode']) && $settings['cookie_consent_mode'] === 'opt_out'
+                ? 'opt_out'
+                : 'opt_in',
             'policyUrl' => !empty($settings['cookie_policy_url']) ? esc_url($settings['cookie_policy_url']) : '',
             'theme' => in_array($settings['cookie_banner_theme'], ['light', 'dark'], true)
                 ? $settings['cookie_banner_theme']
@@ -291,7 +294,16 @@ class DBCM_Counter_Manager {
             return true;
         }
 
-        return $this->get_user_consent_status() === 'accepted';
+        $consent = $this->get_user_consent_status();
+        $mode    = isset($settings['cookie_consent_mode']) && $settings['cookie_consent_mode'] === 'opt_out'
+            ? 'opt_out'
+            : 'opt_in';
+
+        if ($mode === 'opt_out') {
+            return $consent !== 'declined';
+        }
+
+        return $consent === 'accepted';
     }
 
     /**

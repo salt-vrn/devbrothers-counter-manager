@@ -227,20 +227,54 @@
     line-height: 1.5;
 }
 
-.dbcm-policy-wrapper {
-    margin-top: 16px;
+.dbcm-form-field {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #f0f0f1;
 }
 
-.dbcm-policy-wrapper input[type="url"] {
+.dbcm-form-field--consent-mode {
+    margin-top: 16px;
+    padding-top: 0;
+    border-top: none;
+}
+
+.dbcm-field-label {
+    display: block;
+    font-weight: 600;
+    font-size: 13px;
+    color: #1d2327;
+    margin-bottom: 8px;
+}
+
+.dbcm-input,
+.dbcm-select,
+.dbcm-exclude-paths {
     width: 100%;
-    max-width: 540px;
+    max-width: 560px;
+    box-sizing: border-box;
+}
+
+.dbcm-select {
+    min-height: 36px;
+    padding: 4px 8px;
+    border-radius: 4px;
 }
 
 .dbcm-exclude-paths {
-    width: 100%;
-    max-width: 540px;
     font-family: Consolas, Monaco, monospace;
     font-size: 13px;
+    line-height: 1.5;
+    padding: 10px 12px;
+    border: 1px solid #dcdcde;
+    border-radius: 4px;
+    background: #fff;
+}
+
+.dbcm-exclude-paths:focus {
+    border-color: #2271b1;
+    box-shadow: 0 0 0 1px #2271b1;
+    outline: none;
 }
 
 /* ===========================================
@@ -259,4 +293,69 @@
 
 .dbcm-instructions-block {
     margin-top: 20px;
+}
+
+/* Cookie consent mode */
+
+.dbcm-consent-mode-fieldset {
+    border: 1px solid #dcdcde;
+    border-radius: 8px;
+    margin: 0 0 12px;
+    padding: 12px 14px;
+    background: #f6f7f7;
+}
+
+.dbcm-consent-mode-option {
+    display: grid;
+    grid-template-columns: 18px 1fr;
+    gap: 4px 12px;
+    align-items: start;
+    margin: 0 0 14px;
+    padding: 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+}
+
+.dbcm-consent-mode-option:last-child {
+    margin-bottom: 0;
+}
+
+.dbcm-consent-mode-option:has(input:checked) {
+    background: #fff;
+}
+
+.dbcm-consent-mode-option input[type="radio"] {
+    grid-column: 1;
+    grid-row: 1;
+    margin: 4px 0 0;
+}
+
+.dbcm-consent-mode-title {
+    grid-column: 2;
+    grid-row: 1;
+    font-weight: 600;
+    color: #1d2327;
+    line-height: 1.4;
+}
+
+.dbcm-consent-mode-desc {
+    grid-column: 2;
+    grid-row: 2;
+    margin: 0;
+}
+
+.dbcm-legal-notice {
+    border-left: 3px solid #dba617;
+    padding: 10px 12px;
+    background: #fff;
+    border-radius: 0 6px 6px 0;
+}
+
+.dbcm-legal-notice p {
+    margin: 0 0 8px;
+}
+
+.dbcm-legal-list {
+    margin: 0 0 8px 1.25em;
 }

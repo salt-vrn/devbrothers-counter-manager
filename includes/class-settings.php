@@ -28,6 +28,7 @@ class DBCM_Settings {
             'google_analytics_enabled' => false,
             'google_analytics_code'   => '',
             'cookie_banner_enabled'   => false,
+            'cookie_consent_mode'     => 'opt_in',
             'cookie_policy_url'       => '',
             'cookie_banner_theme'     => 'light',
             'cookie_banner_exclude_paths' => '',
@@ -198,26 +199,62 @@ class DBCM_Settings {
                     </div>
                     <div class="dbcm-counter-body">
                         <p class="dbcm-hint">
-                            <?php esc_html_e('Если включено: до согласия посетителя счётчики не загружаются, показывается баннер и кнопка "Настройки cookie". Если выключено: счётчики загружаются сразу (текущее поведение).', 'devbrothers-counter-manager'); ?>
+                            <?php esc_html_e('Если включено: показывается баннер и кнопка «Настройки cookie». Поведение счётчиков зависит от выбранного режима согласия ниже. Если выключено: счётчики загружаются сразу.', 'devbrothers-counter-manager'); ?>
                         </p>
 
-                        <div class="dbcm-code-wrapper dbcm-policy-wrapper">
-                            <label for="dbcm_cookie_policy_url">
+                        <div class="dbcm-form-field dbcm-form-field--consent-mode">
+                            <span class="dbcm-field-label"><?php esc_html_e('Режим согласия', 'devbrothers-counter-manager'); ?></span>
+                            <fieldset class="dbcm-consent-mode-fieldset">
+                                <label class="dbcm-consent-mode-option">
+                                    <input type="radio"
+                                           name="dbcm_settings[cookie_consent_mode]"
+                                           value="opt_in"
+                                           <?php checked($settings['cookie_consent_mode'], 'opt_in'); ?> />
+                                    <span class="dbcm-consent-mode-title"><?php esc_html_e('Согласие до загрузки (opt-in)', 'devbrothers-counter-manager'); ?></span>
+                                    <span class="dbcm-hint dbcm-consent-mode-desc"><?php esc_html_e('Счётчики не вставляются, пока посетитель не нажмёт «Принять». «Отклонить» ничего не меняет — счётчики по-прежнему не загружаются.', 'devbrothers-counter-manager'); ?></span>
+                                </label>
+                                <label class="dbcm-consent-mode-option">
+                                    <input type="radio"
+                                           name="dbcm_settings[cookie_consent_mode]"
+                                           value="opt_out"
+                                           <?php checked($settings['cookie_consent_mode'], 'opt_out'); ?> />
+                                    <span class="dbcm-consent-mode-title"><?php esc_html_e('Отказ отключает (opt-out)', 'devbrothers-counter-manager'); ?></span>
+                                    <span class="dbcm-hint dbcm-consent-mode-desc"><?php esc_html_e('Счётчики загружаются сразу. «Принять» ничего не меняет. После «Отклонить» и перезагрузки страницы счётчики отключаются.', 'devbrothers-counter-manager'); ?></span>
+                                </label>
+                            </fieldset>
+                            <div class="dbcm-legal-notice">
+                                <p><strong><?php esc_html_e('Требования Роскомнадзора', 'devbrothers-counter-manager'); ?></strong></p>
+                                <p><?php esc_html_e('Роскомнадзор считает cookie персональными данными. Требуется явное, недвусмысленное согласие — клик по кнопке. Прямо запрещено:', 'devbrothers-counter-manager'); ?></p>
+                                <ul class="dbcm-legal-list">
+                                    <li><?php esc_html_e('предустановленные галочки', 'devbrothers-counter-manager'); ?></li>
+                                    <li><?php esc_html_e('подразумеваемое согласие при продолжении просмотра', 'devbrothers-counter-manager'); ?></li>
+                                    <li><?php esc_html_e('автоматическое согласие после задержек', 'devbrothers-counter-manager'); ?></li>
+                                </ul>
+                                <p class="dbcm-hint"><?php esc_html_e('Для соответствия этим требованиям рекомендуется режим opt-in.', 'devbrothers-counter-manager'); ?></p>
+                            </div>
+                        </div>
+
+                        <div class="dbcm-form-field">
+                            <span class="dbcm-field-label" id="dbcm_cookie_policy_url_label">
                                 <?php esc_html_e('Ссылка на политику конфиденциальности / cookie', 'devbrothers-counter-manager'); ?>
-                            </label>
+                            </span>
                             <input type="url"
                                    name="dbcm_settings[cookie_policy_url]"
                                    id="dbcm_cookie_policy_url"
-                                   class="regular-text"
+                                   class="regular-text dbcm-input"
                                    placeholder="https://example.com/privacy-policy/"
-                                   value="<?php echo esc_attr($settings['cookie_policy_url']); ?>" />
+                                   value="<?php echo esc_attr($settings['cookie_policy_url']); ?>"
+                                   aria-labelledby="dbcm_cookie_policy_url_label" />
                         </div>
 
-                        <div class="dbcm-code-wrapper dbcm-policy-wrapper">
-                            <label for="dbcm_cookie_banner_theme">
+                        <div class="dbcm-form-field">
+                            <span class="dbcm-field-label" id="dbcm_cookie_banner_theme_label">
                                 <?php esc_html_e('Тема баннера', 'devbrothers-counter-manager'); ?>
-                            </label>
-                            <select name="dbcm_settings[cookie_banner_theme]" id="dbcm_cookie_banner_theme">
+                            </span>
+                            <select name="dbcm_settings[cookie_banner_theme]"
+                                    id="dbcm_cookie_banner_theme"
+                                    class="dbcm-select"
+                                    aria-labelledby="dbcm_cookie_banner_theme_label">
                                 <option value="light" <?php selected($settings['cookie_banner_theme'], 'light'); ?>>
                                     <?php esc_html_e('Светлая', 'devbrothers-counter-manager'); ?>
                                 </option>
@@ -227,15 +264,16 @@ class DBCM_Settings {
                             </select>
                         </div>
 
-                        <div class="dbcm-code-wrapper dbcm-policy-wrapper">
-                            <label for="dbcm_cookie_banner_exclude_paths">
+                        <div class="dbcm-form-field">
+                            <span class="dbcm-field-label" id="dbcm_cookie_banner_exclude_paths_label">
                                 <?php esc_html_e('Не показывать баннер на страницах', 'devbrothers-counter-manager'); ?>
-                            </label>
+                            </span>
                             <textarea name="dbcm_settings[cookie_banner_exclude_paths]"
                                       id="dbcm_cookie_banner_exclude_paths"
                                       class="dbcm-exclude-paths"
                                       rows="5"
-                                      placeholder="/dashboard/&#10;/dashboard/billing/"><?php echo esc_textarea($settings['cookie_banner_exclude_paths']); ?></textarea>
+                                      placeholder="/dashboard/&#10;/dashboard/billing/"
+                                      aria-labelledby="dbcm_cookie_banner_exclude_paths_label"><?php echo esc_textarea($settings['cookie_banner_exclude_paths']); ?></textarea>
                             <p class="dbcm-hint">
                                 <?php esc_html_e('Один путь или URL на строку. Можно указать полный адрес (https://example.com/dashboard/) или только путь (/dashboard/). Страница и все вложенные URL с этим префиксом будут исключены — достаточно одной строки /dashboard/ для /dashboard/billing/ и т.д. На исключённых страницах баннер не показывается, счётчики загружаются сразу.', 'devbrothers-counter-manager'); ?>
                             </p>
@@ -355,6 +393,9 @@ class DBCM_Settings {
         }
 
         $sanitized['cookie_banner_enabled'] = !empty($input['cookie_banner_enabled']);
+
+        $consent_mode = isset($input['cookie_consent_mode']) ? sanitize_key($input['cookie_consent_mode']) : 'opt_in';
+        $sanitized['cookie_consent_mode'] = in_array($consent_mode, ['opt_in', 'opt_out'], true) ? $consent_mode : 'opt_in';
 
         if (isset($input['cookie_policy_url'])) {
             $sanitized['cookie_policy_url'] = esc_url_raw(trim((string) $input['cookie_policy_url']));
