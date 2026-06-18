@@ -3,7 +3,7 @@
  * Plugin Name: DevBrothers Counter Manager
  * Plugin URI: https://devbrothers.ru/counter-manager/
  * Description: Manage analytics counters (Yandex.Metrika, Google Analytics) for WordPress. Easy insertion of counter code into page head.
- * Version: 1.0.3
+ * Version: 1.0.4
  * Author: DevBrothers
  * Author URI: https://devbrothers.ru
  * License: GPL v2 or later
@@ -19,7 +19,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('DBCM_VERSION', '1.0.3');
+define('DBCM_VERSION', '1.0.4');
 define('DBCM_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('DBCM_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('DBCM_PLUGIN_BASENAME', plugin_basename(__FILE__));

@@ -3,7 +3,7 @@ Contributors: lzolotarev
 Tags: analytics, yandex-metrika, google-analytics, cookie, tracking
 Requires at least: 5.8
 Tested up to: 7.0
-Stable tag: 1.0.3
+Stable tag: 1.0.4
 Requires PHP: 7.4
 Requires Plugins: devbrothers-admin-panel
 License: GPLv2 or later
@@ -116,6 +116,10 @@ Counter Manager registers its settings page inside the DevBrothers admin UI. Ins
 3. Cookie banner on the front end (example)
 
 == Changelog ==
+
+= 1.0.4 =
+* Re-release with corrected SVN tag format
+* No code changes from 1.0.3
 
 = 1.0.3 =
 * Code updates from author
