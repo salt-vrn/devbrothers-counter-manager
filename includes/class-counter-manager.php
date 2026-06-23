@@ -256,7 +256,7 @@ class DBCM_Counter_Manager {
                 ? $settings['cookie_banner_theme']
                 : 'light',
             'strings' => [
-                'title' => __('Наш сайт использует Google Analytics и Яндекс.Метрику для сбора статистики и улучшения работы сайта. Эти сервисы используют файлы cookie и требуют вашего согласия. Вы можете принять или отклонить их использование.', 'devbrothers-counter-manager'),
+                'title' => $this->get_cookie_banner_title($settings),
                 'accept' => __('Принять', 'devbrothers-counter-manager'),
                 'decline' => __('Отклонить', 'devbrothers-counter-manager'),
                 'settings' => __('Настройки cookie', 'devbrothers-counter-manager'),
@@ -287,6 +287,31 @@ class DBCM_Counter_Manager {
         </div>
         <button type="button" class="dbcm-cookie-fab" id="dbcm-cookie-fab" hidden></button>
         <?php
+    }
+
+    /**
+     * Текст баннера с упоминанием только включённых счётчиков.
+     *
+     * @param array $settings
+     * @return string
+     */
+    private function get_cookie_banner_title($settings) {
+        $yandex_active = !empty($settings['yandex_metrika_enabled']) && !empty($settings['yandex_metrika_code']);
+        $google_active = !empty($settings['google_analytics_enabled']) && !empty($settings['google_analytics_code']);
+
+        if ($yandex_active && $google_active) {
+            return __('Наш сайт использует Google Analytics и Яндекс.Метрику для сбора статистики и улучшения работы сайта. Эти сервисы используют файлы cookie и требуют вашего согласия. Вы можете принять или отклонить их использование.', 'devbrothers-counter-manager');
+        }
+
+        if ($yandex_active) {
+            return __('Наш сайт использует Яндекс.Метрику для сбора статистики и улучшения работы сайта. Сервис использует файлы cookie и требует вашего согласия. Вы можете принять или отклонить его использование.', 'devbrothers-counter-manager');
+        }
+
+        if ($google_active) {
+            return __('Наш сайт использует Google Analytics для сбора статистики и улучшения работы сайта. Сервис использует файлы cookie и требует вашего согласия. Вы можете принять или отклонить его использование.', 'devbrothers-counter-manager');
+        }
+
+        return __('Наш сайт использует файлы cookie для сбора статистики и улучшения работы сайта. Требуется ваше согласие. Вы можете принять или отклонить их использование.', 'devbrothers-counter-manager');
     }
 
     private function should_output_counters($settings) {
