@@ -255,6 +255,7 @@ class DBCM_Counter_Manager {
             'theme' => in_array($settings['cookie_banner_theme'], ['light', 'dark'], true)
                 ? $settings['cookie_banner_theme']
                 : 'light',
+            'hideFabAfterChoice' => !empty($settings['cookie_hide_fab_after_choice']),
             'strings' => [
                 'title' => $this->get_cookie_banner_title($settings),
                 'accept' => __('Принять', 'devbrothers-counter-manager'),
@@ -274,8 +275,10 @@ class DBCM_Counter_Manager {
         if (empty($settings['cookie_banner_enabled']) || $this->is_cookie_banner_excluded_for_current_url($settings)) {
             return;
         }
+
+        $position_class = $this->get_cookie_banner_position_class($settings);
         ?>
-        <div class="dbcm-cookie-banner" id="dbcm-cookie-banner" hidden>
+        <div class="dbcm-cookie-banner <?php echo esc_attr($position_class); ?>" id="dbcm-cookie-banner" hidden>
             <div class="dbcm-cookie-banner__content">
                 <p class="dbcm-cookie-banner__text" id="dbcm-cookie-banner-text"></p>
                 <div class="dbcm-cookie-banner__actions">
@@ -285,8 +288,24 @@ class DBCM_Counter_Manager {
                 </div>
             </div>
         </div>
-        <button type="button" class="dbcm-cookie-fab" id="dbcm-cookie-fab" hidden></button>
+        <button type="button" class="dbcm-cookie-fab <?php echo esc_attr($position_class); ?>" id="dbcm-cookie-fab" hidden></button>
         <?php
+    }
+
+    /**
+     * CSS-класс позиции cookie-баннера.
+     *
+     * @param array $settings
+     * @return string
+     */
+    private function get_cookie_banner_position_class($settings) {
+        $position = isset($settings['cookie_banner_position']) ? $settings['cookie_banner_position'] : 'bottom_left';
+
+        if (!in_array($position, ['bottom_left', 'bottom_center', 'bottom_right'], true)) {
+            $position = 'bottom_left';
+        }
+
+        return 'dbcm-pos-' . str_replace('_', '-', $position);
     }
 
     /**

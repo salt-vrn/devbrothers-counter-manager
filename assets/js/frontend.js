@@ -10,6 +10,7 @@
     var strings = dbcmFrontend.strings || {};
     var policyUrl = dbcmFrontend.policyUrl || '';
     var theme = dbcmFrontend.theme === 'dark' ? 'dark' : 'light';
+    var hideFabAfterChoice = !!dbcmFrontend.hideFabAfterChoice;
     var maxAgeSeconds = 60 * 60 * 24 * 365;
 
     function getCookie(name) {
@@ -70,7 +71,11 @@
         }
 
         hide(banner);
-        show(fab);
+        if (hideFabAfterChoice) {
+            hide(fab);
+        } else {
+            show(fab);
+        }
     }
 
     document.addEventListener('DOMContentLoaded', function () {

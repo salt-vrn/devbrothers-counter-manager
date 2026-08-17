@@ -31,6 +31,8 @@ class DBCM_Settings {
             'cookie_consent_mode'     => 'opt_in',
             'cookie_policy_url'       => '',
             'cookie_banner_theme'     => 'light',
+            'cookie_banner_position'  => 'bottom_left',
+            'cookie_hide_fab_after_choice' => false,
             'cookie_banner_exclude_paths' => '',
         ];
 
@@ -265,6 +267,40 @@ class DBCM_Settings {
                         </div>
 
                         <div class="dbcm-form-field">
+                            <span class="dbcm-field-label" id="dbcm_cookie_banner_position_label">
+                                <?php esc_html_e('Положение баннера', 'devbrothers-counter-manager'); ?>
+                            </span>
+                            <select name="dbcm_settings[cookie_banner_position]"
+                                    id="dbcm_cookie_banner_position"
+                                    class="dbcm-select"
+                                    aria-labelledby="dbcm_cookie_banner_position_label">
+                                <option value="bottom_left" <?php selected($settings['cookie_banner_position'], 'bottom_left'); ?>>
+                                    <?php esc_html_e('Нижний левый угол', 'devbrothers-counter-manager'); ?>
+                                </option>
+                                <option value="bottom_center" <?php selected($settings['cookie_banner_position'], 'bottom_center'); ?>>
+                                    <?php esc_html_e('По центру внизу', 'devbrothers-counter-manager'); ?>
+                                </option>
+                                <option value="bottom_right" <?php selected($settings['cookie_banner_position'], 'bottom_right'); ?>>
+                                    <?php esc_html_e('Нижний правый угол', 'devbrothers-counter-manager'); ?>
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="dbcm-form-field">
+                            <label class="dbcm-checkbox-label" for="dbcm_cookie_hide_fab_after_choice">
+                                <input type="checkbox"
+                                       name="dbcm_settings[cookie_hide_fab_after_choice]"
+                                       id="dbcm_cookie_hide_fab_after_choice"
+                                       value="1"
+                                       <?php checked(!empty($settings['cookie_hide_fab_after_choice'])); ?> />
+                                <span><?php esc_html_e('Скрывать кнопку «Настройки cookie» после выбора', 'devbrothers-counter-manager'); ?></span>
+                            </label>
+                            <p class="dbcm-hint">
+                                <?php esc_html_e('После «Принять» или «Отклонить» маленькая кнопка не показывается. Удобно, если она перекрывает нижние панели на мобильных. Изменить решение посетитель сможет только очистив cookies браузера.', 'devbrothers-counter-manager'); ?>
+                            </p>
+                        </div>
+
+                        <div class="dbcm-form-field">
                             <span class="dbcm-field-label" id="dbcm_cookie_banner_exclude_paths_label">
                                 <?php esc_html_e('Не показывать баннер на страницах', 'devbrothers-counter-manager'); ?>
                             </span>
@@ -405,6 +441,13 @@ class DBCM_Settings {
 
         $theme = isset($input['cookie_banner_theme']) ? sanitize_key($input['cookie_banner_theme']) : 'light';
         $sanitized['cookie_banner_theme'] = in_array($theme, ['light', 'dark'], true) ? $theme : 'light';
+
+        $position = isset($input['cookie_banner_position']) ? sanitize_key($input['cookie_banner_position']) : 'bottom_left';
+        $sanitized['cookie_banner_position'] = in_array($position, ['bottom_left', 'bottom_center', 'bottom_right'], true)
+            ? $position
+            : 'bottom_left';
+
+        $sanitized['cookie_hide_fab_after_choice'] = !empty($input['cookie_hide_fab_after_choice']);
 
         if (isset($input['cookie_banner_exclude_paths'])) {
             $sanitized['cookie_banner_exclude_paths'] = $this->sanitize_exclude_paths((string) $input['cookie_banner_exclude_paths']);

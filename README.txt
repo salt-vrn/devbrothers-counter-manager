@@ -3,7 +3,7 @@ Contributors: lzolotarev
 Tags: analytics, yandex-metrika, google-analytics, cookie, tracking
 Requires at least: 5.8
 Tested up to: 7.0
-Stable tag: 1.0.5
+Stable tag: 1.0.6
 Requires PHP: 7.4
 Requires Plugins: devbrothers-admin-panel
 License: GPLv2 or later
@@ -117,6 +117,9 @@ Counter Manager registers its settings page inside the DevBrothers admin UI. Ins
 
 == Changelog ==
 
+= 1.0.6 =
+* Version alignment with WordPress.org SVN
+
 = 1.0.5 =
 * Cookie banner text dynamically mentions only enabled counters (Yandex.Metrika, Google Analytics, or both)
 
@@ -138,8 +141,11 @@ Counter Manager registers its settings page inside the DevBrothers admin UI. Ins
 
 == Upgrade Notice ==
 
+= 1.0.6 =
+Version alignment with WordPress.org.
+
 = 1.0.5 =
-Dynamic cookie banner text based on enabled counters.
+Cookie banner text reflects only enabled counters.
 
 = 1.0.2 =
 Cookie consent mode: opt-in or opt-out.

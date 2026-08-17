@@ -247,6 +247,22 @@
     margin-bottom: 8px;
 }
 
+.dbcm-checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1d2327;
+    cursor: pointer;
+    line-height: 1.4;
+}
+
+.dbcm-checkbox-label input[type="checkbox"] {
+    margin: 2px 0 0;
+    flex-shrink: 0;
+}
+
 .dbcm-input,
 .dbcm-select,
 .dbcm-exclude-paths {
