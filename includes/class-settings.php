@@ -43,6 +43,11 @@ class DBCM_Settings {
      * Отрисовка страницы настроек
      */
     public function render_settings_page() {
+        if (!current_user_can('manage_options')) {
+            wp_die(esc_html__('Недостаточно прав', 'devbrothers-counter-manager'));
+        }
+
+        $can_edit_counter_code = current_user_can('unfiltered_html');
         $settings_saved = false;
 
         if (isset($_POST['dbcm_save_settings'])) {
@@ -51,10 +56,6 @@ class DBCM_Settings {
                 || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['_wpnonce'])), 'dbcm_settings_nonce')
             ) {
                 wp_die(esc_html__('Ошибка безопасности', 'devbrothers-counter-manager'));
-            }
-
-            if (!current_user_can('manage_options')) {
-                wp_die(esc_html__('Недостаточно прав', 'devbrothers-counter-manager'));
             }
 
             $this->save_settings_internal();
@@ -82,6 +83,9 @@ class DBCM_Settings {
                     <span class="dashicons dashicons-chart-line"></span>
                     <?php esc_html_e('Счетчики аналитики', 'devbrothers-counter-manager'); ?>
                 </h2>
+                <?php if (!$can_edit_counter_code) : ?>
+                    <p class="description"><?php esc_html_e('Для изменения кода счётчиков требуется право unfiltered_html. Остальные настройки доступны.', 'devbrothers-counter-manager'); ?></p>
+                <?php endif; ?>
 
                 <!-- Яндекс.Метрика -->
                 <div class="dbcm-counter-card<?php echo esc_attr($ym_active ? ' dbcm-active' : ''); ?>">
@@ -117,6 +121,7 @@ class DBCM_Settings {
                                       id="dbcm_yandex_metrika_code"
                                       class="dbcm-code-editor"
                                       rows="12"
+                                      <?php disabled(!$can_edit_counter_code); ?>
                                       placeholder="<?php esc_attr_e('Вставьте полный код счётчика Яндекс.Метрики...', 'devbrothers-counter-manager'); ?>"><?php echo esc_textarea($settings['yandex_metrika_code']); ?></textarea>
                         </div>
                         <p class="dbcm-hint">
@@ -159,6 +164,7 @@ class DBCM_Settings {
                                       id="dbcm_google_analytics_code"
                                       class="dbcm-code-editor"
                                       rows="12"
+                                      <?php disabled(!$can_edit_counter_code); ?>
                                       placeholder="<?php esc_attr_e('Вставьте полный код Google Analytics (gtag.js)...', 'devbrothers-counter-manager'); ?>"><?php echo esc_textarea($settings['google_analytics_code']); ?></textarea>
                         </div>
                         <p class="dbcm-hint">
@@ -411,21 +417,15 @@ class DBCM_Settings {
      */
     public function sanitize_settings($input) {
         $sanitized = [];
+        $current = $this->get_settings();
 
         $sanitized['yandex_metrika_enabled'] = !empty($input['yandex_metrika_enabled']);
-
-        if (isset($input['yandex_metrika_code'])) {
-            $sanitized['yandex_metrika_code'] = $this->sanitize_counter_code($input['yandex_metrika_code'], 'yandex');
-        } else {
-            $sanitized['yandex_metrika_code'] = '';
-        }
-
         $sanitized['google_analytics_enabled'] = !empty($input['google_analytics_enabled']);
 
-        if (isset($input['google_analytics_code'])) {
-            $sanitized['google_analytics_code'] = $this->sanitize_counter_code($input['google_analytics_code'], 'google');
-        } else {
-            $sanitized['google_analytics_code'] = '';
+        foreach (['yandex_metrika_code' => 'yandex', 'google_analytics_code' => 'google'] as $field => $provider) {
+            $sanitized[$field] = current_user_can('unfiltered_html') && is_string($input[$field] ?? null)
+                ? $this->sanitize_counter_code($input[$field], $provider)
+                : $current[$field];
         }
 
         $sanitized['cookie_banner_enabled'] = !empty($input['cookie_banner_enabled']);
@@ -539,7 +539,7 @@ class DBCM_Settings {
      *
      * Блокирует HTML-теги, не ожидаемые в коде аналитики.
      * Код <script> и <noscript> допускается, т.к. это штатные теги счётчиков.
-     * Доступ к сохранению ограничен capability manage_options.
+     * Для записи кода на странице настроек нужны manage_options и unfiltered_html.
      *
      * @param string $code
      * @param string $provider yandex|google

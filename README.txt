@@ -3,7 +3,7 @@ Contributors: lzolotarev
 Tags: analytics, yandex-metrika, google-analytics, cookie, tracking
 Requires at least: 5.8
 Tested up to: 7.0
-Stable tag: 1.0.6
+Stable tag: 1.0.7
 Requires PHP: 7.4
 Requires Plugins: devbrothers-admin-panel
 License: GPLv2 or later
@@ -103,7 +103,7 @@ Yes. Use **Exclude paths** in cookie banner settings (one path per line, e.g. `/
 
 = Is it safe to paste counter code in the admin? =
 
-Only users with `manage_options` can save settings. The plugin blocks dangerous HTML tags in counter code while allowing standard `<script>` and `<noscript>` tags used by analytics vendors.
+Only users with `manage_options` can save settings, and changing counter code also requires `unfiltered_html`. Counter code contains executable JavaScript: paste only snippets you trust.
 
 = Why is DevBrothers Admin Panel required? =
 
@@ -116,6 +116,9 @@ Counter Manager registers its settings page inside the DevBrothers admin UI. Ins
 3. Cookie banner on the front end (example)
 
 == Changelog ==
+
+= 1.0.7 =
+* Require the WordPress unfiltered_html capability to change executable analytics snippets without changing existing snippets or consent settings.
 
 = 1.0.6 =
 * Version alignment with WordPress.org SVN
